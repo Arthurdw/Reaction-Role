@@ -1,6 +1,11 @@
 # Reaction Role Bot
 ### Using Discord.py Rewrite!
 
+## Requirements:
+This bot requires [Python 3.7.x](https://www.python.org/downloads/ 'Python Download')!  
+When Python is installed, open the cmd in the folder and type: '`pip install -r requirements.txt`'!  
+Thats it!  
+
 ## Setup:
 This bot is very easy to setup and just requires a few steps.  
 First of all you need to get your discord bot token. ("`token = `")  
