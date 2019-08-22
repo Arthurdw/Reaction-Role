@@ -26,8 +26,8 @@ So you can create an infinite amount of reaction roles!
   
 The rich message, changes the bot its presence! ("`rich_message =`")  
 The message that is assigned to the variable will be displayed like this:  
-![First](https://gyazo.com/9ab8ecfbb0967b7aee313d2fe1638670 "Rich Presence")  
-![Second](https://gyazo.com/ecc60c3b0ca08e8d9ebc0ec53e6c72db "Rich Presence")  
+![First](https://i.gyazo.com/9ab8ecfbb0967b7aee313d2fe1638670.png "Rich Presence")  
+![Second](https://i.gyazo.com/ecc60c3b0ca08e8d9ebc0ec53e6c72db.png "Rich Presence")  
 
 
 ## Using this as an extension:
