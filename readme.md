@@ -7,7 +7,7 @@ First of all you need to get your discord bot token. ("`token = `")
 You can retrieve this from the [Discord Developer Application site](https://discordapp.com/developers/applications/me 'Discord Developer Platform')!    
 Or follow [this](https://github.com/Arthurdw/UwU/wiki/How-to-create-your-bot-and-find-your-own-bot-token! 'Find your bot token!') tutorial!  
   
-Then fill in your server id, click [here](https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID- "Discord's server ID tutorial!") ("`server_id =`")  
+Then fill in your server id, click [here](https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID- "Discord's server ID tutorial!") for more information on how to find your server id! ("`server_id =`")  
 And finally add your reaction roles.
 > ```python
 > # Single reaction role instance:
