@@ -34,7 +34,21 @@ The message that is assigned to the variable will be displayed like this:
 ![First](https://i.gyazo.com/9ab8ecfbb0967b7aee313d2fe1638670.png "Rich Presence")  
 ![Second](https://i.gyazo.com/ecc60c3b0ca08e8d9ebc0ec53e6c72db.png "Rich Presence")  
 
-
+## Reaction logging:
+The channel the emoji log should be sent to:
+```python
+logging_channel = 597146453240184843
+```
+The format the time in the log message should have:
+```python
+# %d = date
+# %m = month
+# %Y = year
+# %H = hour
+# %M = minute
+# %S = seconds
+date_format = '%d/%m/%Y | %H:%M:%S'
+```
 ## Using this as an extension:
 If you would like to use this as an extension for your bot, you are free to do so.
-Just use the '`Main`' file from the '`extensions`' folder!
+Just use the '`Main`' or `Emojilogger` file from the '`extensions`' folder!
