@@ -51,4 +51,4 @@ date_format = '%d/%m/%Y | %H:%M:%S'
 ```
 ## Using this as an extension:
 If you would like to use this as an extension for your bot, you are free to do so.
-Just use the '`Main`' or `Emojilogger` file from the '`extensions`' folder!
+Just use the '`Main`' or '`Emojilogger`' file from the '`extensions`' folder!
