@@ -4,7 +4,7 @@ from discord.ext import commands as cmd
 from config import token
 
 # Create list with extensions in it.
-EXTENSIONS = ['Main']
+EXTENSIONS = ['Main', 'EmojiLogger']
 
 # Create Class for the bot to start in.
 class Reaction(cmd.Bot):
