@@ -71,7 +71,7 @@ class Bot(BotX):
         for index, _ in enumerate(self.load_extensions(extensions)):
             if strtobool(cfg["CONSOLE"].get("print_imports", "true")):
                 self.ph.info(f"Successfully loaded "
-                             f"{Colors.light_blue.value + extensions[index].replace('extensions.', '')}")
+                             f"{Colors.light_magenta.value + extensions[index].replace('extensions.', '')}")
 
     @staticmethod
     def restart():
@@ -89,6 +89,7 @@ class Bot(BotX):
 
     async def on_ready(self):
         self.ph.info(f"Currently running on v{self.vm.version}!")
+        print()
 
         async def get_correct_bot_object(path: str, objects: list):
             value = cfg["BOT"].get(path, None)

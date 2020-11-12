@@ -54,7 +54,7 @@ class PrintHandler:
 
         :param message: The message that must be printed.
         """
-        self.prettier.print(message, datetime.now())
+        self.prettier.print(message + d, datetime.now())
 
     def info(self, message: str) -> None:
         """
