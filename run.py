@@ -29,7 +29,7 @@ from glob import glob
 from os import name, execv, system, environ
 from sys import argv, executable, stdout, exit
 
-from discord import LoginFailure, Game, Streaming, Status
+from discord import LoginFailure, Status, Activity, ActivityType
 from utilsx.console import Prettier, Colors
 from utilsx.discord import BotX
 
@@ -98,7 +98,7 @@ class Bot(BotX):
                 self.ph.fatal("Invalid config file.")
                 raise SystemExit(1)
             for obj in objects:
-                if obj[0] == value.lower():
+                if obj[0] == value.strip().lower():
                     return obj[1]
             self.ph.warn(f"Could not parse given configuration for value '{path}' ['{value}' was given]")
             self.ph.fatal("Invalid config file.")
@@ -109,12 +109,13 @@ class Bot(BotX):
 
         try:
             if strtobool(cfg["BOT"].get("rich_presence_enabled")):
-                activities = [("playing", Game), ("streaming", Streaming)]
+                activities = [("playing", ActivityType.playing), ("streaming", ActivityType.streaming),
+                              ("watching", ActivityType.watching), ("listening to", ActivityType.listening)]
                 await self.change_presence(
-                    activity=(await get_correct_bot_object("rich_presence_type", activities))(
-                        name=cfg["BOT"].get("rich_presence", "Invalid configuration"),
-                        start=datetime.now(),
-                        url="https://www.twitch.tv/bel_justice"),
+                    activity=Activity(type=await get_correct_bot_object("rich_presence_type", activities),
+                                      name=cfg["BOT"].get("rich_presence", "Invalid configuration"),
+                                      start=datetime.now(),
+                                      url="https://www.twitch.tv/bel_justice"),
                     status=await get_correct_bot_object("bot_status", statuses)
                 )
             else:
