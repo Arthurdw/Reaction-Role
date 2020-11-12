@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+"""
 MIT License
 
 Copyright (c) 2019-2020 Arthur
@@ -19,3 +21,23 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+"""
+
+"""
+Format:
+reaction_roles = {
+    messageId: [
+        (emoji, roleId),
+        (emoji, roleId)
+    ],
+    messageId: [
+        (emoji, roleId)
+    ]
+}
+"""
+
+reaction_roles = {
+    123456789987654321: [
+        ("😃", 123456789987654321)
+    ]
+}
