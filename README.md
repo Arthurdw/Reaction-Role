@@ -104,6 +104,13 @@ your guild its id *(discord server)* and `log_channel` to your channel its id.
 
 Then reboot the bot and everything should work!
 
+## Running the bot
+
+To run the bot simply run the following command:
+```
+(python3 -m | py -3 -m) run.py
+```
+
 ## Creating custom extensions
 
 This bot is fully optimized to be able to get expanded with ease. Just place your extension file in 
@@ -113,3 +120,12 @@ library as it makes writing discord.py code easier and faster.
 
 ## Having issues?
 Please [create an issue](https://github.com/Arthurdw/Reaction-Role/issues/new) or join [our discord](https://discord.gg/Z6dw5pw) and I'll help you out!
+
+## Support this project
+
+You are always free to donate me though PayPal.  
+[paypal.me/ArthurDeWitte](http://paypal.me/ArthurDeWitte)
+
+### Special thanks
+
+Special thanks to `CombatMedic02#2610` for supporting me in this project ♥
