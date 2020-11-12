@@ -40,7 +40,8 @@ ly = Colors.light_yellow.value
 
 # Handles most console messages.
 class PrintHandler:
-    def __init__(self, prettier: Prettier):
+    def __init__(self, prettier: Prettier, log: bool):
+        self.log = log
         self.prettier = prettier
         self.info_prefix = f"\b{b}[{lb}INFO{b}]{d} "
         self.warning_prefix = f"\b{y}[{ly}WARN{y}]{d} "
@@ -61,7 +62,8 @@ class PrintHandler:
 
         :param message: The message that must be printed.
         """
-        self.printf(self.info_prefix + message)
+        if self.log:
+            self.printf(self.info_prefix + message)
 
     def warn(self, message: str) -> None:
         """
@@ -69,7 +71,8 @@ class PrintHandler:
 
         :param message: The message that must be printed.
         """
-        self.printf(self.warning_prefix + message)
+        if self.log:
+            self.printf(self.warning_prefix + message)
 
     def fatal(self, message: str) -> None:
         """
@@ -77,4 +80,5 @@ class PrintHandler:
 
         :param message: The message that must be printed.
         """
-        self.printf(self.fatal_prefix + message)
+        if self.log:
+            self.printf(self.fatal_prefix + message)

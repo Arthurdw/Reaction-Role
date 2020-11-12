@@ -23,12 +23,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from configparser import ConfigParser
+from datetime import datetime
 from distutils.util import strtobool
 from glob import glob
 from os import name, execv, system, environ
-from sys import argv, executable, stdout
+from sys import argv, executable, stdout, exit
 
-from discord import LoginFailure
+from discord import LoginFailure, Game, Streaming, Status
 from utilsx.console import Prettier, Colors
 from utilsx.discord import BotX
 
@@ -68,8 +69,9 @@ class Bot(BotX):
         extensions = list(map(lambda extension: extension.replace(back_slash, ".")[:-3], glob("extensions/*.py")))
 
         for index, _ in enumerate(self.load_extensions(extensions)):
-            self.ph.info(f"Successfully loaded "
-                         f"{Colors.light_blue.value + extensions[index].replace('extensions.', '')}")
+            if strtobool(cfg["CONSOLE"].get("print_imports", "true")):
+                self.ph.info(f"Successfully loaded "
+                             f"{Colors.light_blue.value + extensions[index].replace('extensions.', '')}")
 
     @staticmethod
     def restart():
@@ -88,11 +90,44 @@ class Bot(BotX):
     async def on_ready(self):
         self.ph.info(f"Currently running on v{self.vm.version}!")
 
+        async def get_correct_bot_object(path: str, objects: list):
+            value = cfg["BOT"].get(path, None)
+            if not value:
+                self.ph.warn("Presence path could not be found!")
+                self.ph.fatal("Invalid config file.")
+                raise SystemExit(1)
+            for obj in objects:
+                if obj[0] == value.lower():
+                    return obj[1]
+            self.ph.warn(f"Could not parse given configuration for value '{path}' ['{value}' was given]")
+            self.ph.fatal("Invalid config file.")
+            raise SystemExit(1)
+
+        statuses = [("online", Status.online), ("dnd", Status.dnd), ("idle", Status.idle),
+                    ("invisible", Status.invisible)]
+
+        try:
+            if strtobool(cfg["BOT"].get("rich_presence_enabled")):
+                activities = [("playing", Game), ("streaming", Streaming)]
+                await self.change_presence(
+                    activity=(await get_correct_bot_object("rich_presence_type", activities))(
+                        name=cfg["BOT"].get("rich_presence", "Invalid configuration"),
+                        start=datetime.now(),
+                        url="https://www.twitch.tv/bel_justice"),
+                    status=await get_correct_bot_object("bot_status", statuses)
+                )
+            else:
+                await self.change_presence(status=await get_correct_bot_object("bot_status", statuses))
+        except SystemExit as err:
+            await self.close()
+            raise err
+
 
 if __name__ == "__main__":
     prettier = Prettier(colors_enabled=strtobool(cfg["CONSOLE"].get("colors", "true")),
-                             auto_strip_message=True)
-    ph = PrintHandler(prettier)
+                        auto_strip_message=True)
+    ph = PrintHandler(prettier, strtobool(cfg["CONSOLE"].get("print_log", "true")))
+    token = None
 
     if strtobool(cfg["TOKEN"].get("token_env_enabled", "false")):
         location = cfg["TOKEN"].get("token_env", "RR_BOT_TOKEN")
@@ -100,8 +135,8 @@ if __name__ == "__main__":
             token = environ[location]
         except KeyError as e:
             ph.fatal("The requested environment variable doesn't exist.\n"
-                  "Please check if you have reopened your CLI or of it is set.")
-            raise e
+                     "Please check if you have reopened your CLI or of it is set.")
+            exit(1)
     else:
         token = cfg["TOKEN"]["token"]
 
@@ -109,3 +144,7 @@ if __name__ == "__main__":
         Bot(prettier, ph).run(token)
     except LoginFailure:
         ph.fatal("A wrong bot token was provided!")
+    except SystemExit:
+        ph.fatal("Shutting down bot, caused by previous warning or fatal.")
+    except Exception as e:
+        ph.fatal(f"Shutting down bot, error:\n{e}")
