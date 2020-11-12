@@ -23,8 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from discord import RawReactionActionEvent
-
 from utilsx.discord import Cog
+
 from config.reaction_roles import reaction_roles
 
 
