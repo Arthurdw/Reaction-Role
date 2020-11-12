@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+"""
 MIT License
 
 Copyright (c) 2019-2020 Arthur
@@ -19,3 +21,32 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+"""
+from os import path
+
+from git import Repo
+
+
+# Create our github communicator.
+class VersionHandler:
+    def __init__(self):
+        self.repo = Repo(path.curdir)
+        self.remote = self.repo.remote("origin")
+        self.version = f"{self.remote.fetch()[0].commit.count():,}"
+
+    @property
+    def is_latest(self) -> bool:
+        """
+        Checks if the current version is the latest version.
+
+        Returns
+        -------
+        :type bool
+        """
+        return self.repo.commit() == self.remote.fetch()[0].commit
+
+    def update_version(self) -> None:
+        """
+        Pulls the latest version from github.
+        """
+        self.remote.pull()
