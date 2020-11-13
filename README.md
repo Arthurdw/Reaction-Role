@@ -108,7 +108,7 @@ Then reboot the bot and everything should work!
 
 To run the bot simply run the following command:
 ```
-(python3 -m | py -3 -m) run.py
+(python3 | py -3) run.py
 ```
 
 ## Creating custom extensions
