@@ -45,6 +45,10 @@ if name == "nt":
 cfg = ConfigParser()
 cfg.read("./config/config.cfg")
 
+if list(cfg) == ["DEFAULT"]:
+    msg = "No valid config was loaded! (did you forget to change the names in the config folder?)"
+    raise RuntimeError(msg)
+
 
 class Bot(BotX):
     """
