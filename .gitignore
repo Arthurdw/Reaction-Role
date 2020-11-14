@@ -3,4 +3,6 @@ __pycache__/
 utils/__pycache__/
 config/__pycache__/
 config/config.cfg
+config/lang.py
+config/reaction_roles.py
 extensions/__pycache__/
