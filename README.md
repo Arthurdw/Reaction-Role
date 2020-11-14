@@ -61,7 +61,7 @@ sure you have the `Privileged Gateway Intents` both turned on.
 
 ![Privileged Gateway Intents](https://the-earth.is-inside.me/IMaBDkoo.png)
 
-In the `config` folder remove the `.example` part from every file.
+In the `config` folder copy the files and remove the `.example` part from every copied file.
 
 Once you have your bot token you can head over to the `config` folder and open the `config.cfg` file.
 At the bottom of that file you will see `token = XXXYOURBOTTOKENHEREXXX`, 
