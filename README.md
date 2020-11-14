@@ -56,7 +56,7 @@ For any discord application you need a Discord Bot token.
 You can get your own bot token from the [Discord Developer Application site](https://discordapp.com/developers/applications/me).  
 Or follow [this](https://github.com/Arthurdw/Reaction-Role/wiki/How-to-create-your-bot-and-find-your-own-bot-token!) tutorial.
 
-In the `config` folder rename `config.example.cfg` to `config.cfg`.
+In the `config` folder remove the `.example` part from every file.
 
 Once you have your bot token you can head over to the `config` folder and open the `config.cfg` file.
 At the bottom of that file you will see `token = XXXYOURBOTTOKENHEREXXX`, 
