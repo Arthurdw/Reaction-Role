@@ -56,6 +56,11 @@ For any discord application you need a Discord Bot token.
 You can get your own bot token from the [Discord Developer Application site](https://discordapp.com/developers/applications/me).  
 Or follow [this](https://github.com/Arthurdw/Reaction-Role/wiki/How-to-create-your-bot-and-find-your-own-bot-token!) tutorial.
 
+In [Discord Developer Application Bot page](https://discordapp.com/developers/applications/me) make
+sure you have the `Privileged Gateway Intents` both turned on.
+
+![Privileged Gateway Intents](https://the-earth.is-inside.me/IMaBDkoo.png)
+
 In the `config` folder remove the `.example` part from every file.
 
 Once you have your bot token you can head over to the `config` folder and open the `config.cfg` file.

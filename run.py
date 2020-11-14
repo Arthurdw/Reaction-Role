@@ -52,14 +52,13 @@ class Bot(BotX):
     """
 
     def __init__(self, _p: Prettier, _ph: PrintHandler):
-        super().__init__()
+        super().__init__(Intents().all())
         system(clear)
         stdout.flush()
         self.prettier = _p
         self.ph = _ph
         self.ph.info("Initializing client...")
         self.prefix = cfg["BOT"].get("prefix", "!")
-        self.intent = Intents(members=True, guild_reactions=True)
 
         self.vm = VersionHandler()
         if strtobool(cfg["UPDATER"].get("enabled", "true")):
