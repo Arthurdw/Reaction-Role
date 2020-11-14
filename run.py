@@ -29,7 +29,7 @@ from glob import glob
 from os import name, execv, system, environ
 from sys import argv, executable, stdout, exit
 
-from discord import LoginFailure, Status, Activity, ActivityType
+from discord import LoginFailure, Status, Activity, ActivityType, Intents
 from utilsx.console import Prettier, Colors
 from utilsx.discord import BotX
 
@@ -59,6 +59,7 @@ class Bot(BotX):
         self.ph = _ph
         self.ph.info("Initializing client...")
         self.prefix = cfg["BOT"].get("prefix", "!")
+        self.intent = Intents(members=True, guild_reactions=True)
 
         self.vm = VersionHandler()
         if strtobool(cfg["UPDATER"].get("enabled", "true")):
