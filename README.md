@@ -148,6 +148,12 @@ the extensions folder and reboot the bot. The bot will automatically try to load
 If you are creating a fresh extension for this bot we recommend that you use the [UtilsX](http://docs.xiler.net/utilsx) 
 library as it makes writing discord.py code easier and faster.
 
+## Adding existing extensions
+
+As said in the [Creating custom extensions](#creating-custom-extensions) section, you can drag and drop extensions. 
+I have a repository which contains such drag and drop extensions.  
+You can find the repository [here](https://github.com/Arthurdw/BotExtensions). (github.com/Arthurdw/BotExtensions)
+
 ## Having issues?
 Please [create an issue](https://github.com/Arthurdw/Reaction-Role/issues/new) or join [our discord](https://discord.gg/Z6dw5pw) and I'll help you out!
 
