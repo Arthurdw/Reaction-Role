@@ -4,14 +4,30 @@
 
 ![Signing In Example](https://the-earth.is-inside.me/gSC4Nmdo.gif)
 
+## IMPORTANT information about the guide
+
+Any python script that gets executed will have `(python3 ... | py -3 ...)` before it 
+in this guide. This is because Unix uses `python3` and Windows uses `py -3`.
+So for example these would be the command that you would have to execute.
+
+```py
+Guide: (python3 -m | py -3 -m) pip install -r requirements.txt
+Unix: python3 -m pip install -r requirements.txt
+Windows: py -3 -m pip install -r requirements.txt
+```
+
 ## Requirements
 
 To be able to run this bot you have [Python](https://www.python.org). (Min: [3.7.x](https://www.python.org/downloads/release/python-379/), Max: [3.8.x](https://www.python.org/downloads/release/python-386/))  
 When Python has been installed open your CLI and navigate to the directory.
 And when you are in the correct directory execute the following command to install the dependencies:
+
 ```
 (python3 -m | py -3 -m) pip install -r requirements.txt
 ```
+
+This bot also required GIT to be installed on the machine, as this makes the downloading
+easier. And lets it check for version updates.
 
 ## Troubleshooting
 
@@ -21,12 +37,26 @@ If this doesn't fix the problem please run the following command:
 (python3 -m | py -3 -m) pip install -U discord.py
 ```
 
+## Downloading the bot
+
+To download the bot, simply navigate to the directory you want the bot to be in and run the
+following command.
+
+```
+git clone https://github.com/Arthurdw/Reaction-Role
+```
+
+The bot should get downloaded, when its done just navigate to the folder and perform 
+the rest of the setup.
+
 ## Setup
 
 This bot is very easy to setup and only requires a few steps!  
 For any discord application you need a Discord Bot token.  
 You can get your own bot token from the [Discord Developer Application site](https://discordapp.com/developers/applications/me).  
 Or follow [this](https://github.com/Arthurdw/Reaction-Role/wiki/How-to-create-your-bot-and-find-your-own-bot-token!) tutorial.
+
+In the `config` folder rename `config.example.cfg` to `config.cfg`.
 
 Once you have your bot token you can head over to the `config` folder and open the `config.cfg` file.
 At the bottom of that file you will see `token = XXXYOURBOTTOKENHEREXXX`, 
@@ -108,7 +138,7 @@ Then reboot the bot and everything should work!
 
 To run the bot simply run the following command:
 ```
-(python3 -m | py -3 -m) run.py
+(python3 | py -3) run.py
 ```
 
 ## Creating custom extensions
