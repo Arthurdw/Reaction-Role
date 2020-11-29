@@ -1,3 +1,7 @@
+![Made with](https://img.shields.io/badge/Made%20With-LOVE-%23fa4b4b?style=flat-square)
+![MIT License](https://img.shields.io/github/license/Arthurdw/Reaction-Role?style=flat-square)
+![Language](https://img.shields.io/badge/Language-Python-%233776AB?style=flat-square)
+
 # Discord Reaction Role Bot
 
 ###### Using UtilsX (w discord.py)
