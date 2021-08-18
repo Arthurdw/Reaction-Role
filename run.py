@@ -62,6 +62,7 @@ class Bot(BotX):
         self.prettier = _p
         self.ph = _ph
         self.ph.info("Initializing client...")
+        self.cfg = cfg
         self.prefix = cfg["BOT"].get("prefix", "!")
 
         self.vm = VersionHandler()

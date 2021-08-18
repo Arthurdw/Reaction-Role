@@ -6,3 +6,4 @@ config/config.cfg
 config/lang.py
 config/reaction_roles.py
 extensions/__pycache__/
+venv/
