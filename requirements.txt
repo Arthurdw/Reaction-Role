@@ -1,2 +1,2 @@
-utilsx
+git+https://github.com/XilerDeprecated/UtilsX
 gitpython
