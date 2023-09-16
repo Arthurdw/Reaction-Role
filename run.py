@@ -71,12 +71,6 @@ class Bot(BotX):
             self.ph.info("No updates found, starting bot...")
 
         self.ph.info("Started loading extensions.")
-        extensions = list(map(lambda extension: extension.replace(back_slash, ".")[:-3], glob("extensions/*.py")))
-
-        for index, _ in enumerate(self.load_extensions(extensions)):
-            if strtobool(cfg["CONSOLE"].get("print_imports", "true")):
-                self.ph.info(f"Successfully loaded "
-                             f"{Colors.light_magenta.value + extensions[index].replace('extensions.', '')}")
 
     @staticmethod
     def restart():
@@ -93,6 +87,20 @@ class Bot(BotX):
             self.restart()
 
     async def on_ready(self):
+        from extensions.ReactionLogger import ReactionLogger 
+        from extensions.ReactionRoles import ReactionRoles 
+
+        extensions = [ReactionRoles]
+
+        if strtobool(cfg["REACTION_LOGGING"].get("enabled", "true")):
+            extensions.append(ReactionLogger)
+
+        for index, extension in enumerate(extensions):
+            await self.add_cog(extension(self))
+            if strtobool(cfg["CONSOLE"].get("print_imports", "true")):
+                self.ph.info(f"Successfully loaded "
+                             f"{Colors.light_magenta.value + extension.__name__}")
+
         self.ph.info(f"Currently running on v{self.vm.version}!")
         print()
 
