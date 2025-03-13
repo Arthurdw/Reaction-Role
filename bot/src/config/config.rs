@@ -26,7 +26,6 @@ pub struct Console {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Bot {
-    pub prefix: String,
     pub rich_presence_enabled: bool,
     pub rich_presence: String,
     pub rich_presence_type: String,
