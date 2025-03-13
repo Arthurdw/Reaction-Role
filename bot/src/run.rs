@@ -2,6 +2,8 @@ use std::sync::Arc;
 
 use anyhow::{Result, bail};
 
+use crate::events::info::InfoHandler;
+use crate::events::presence::PresenceHandler;
 use crate::events::reaction_logger::ReactionLogger;
 use crate::events::reaction_roles::ReactionRoles;
 use crate::{config::BotConfig, events::BaseHandler};
@@ -57,10 +59,15 @@ pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
 
     let mut client = serenity::ClientBuilder::new(get_token(&cfg)?, intents)
         .framework(framework)
-        .event_handler(ReactionRoles::new()?);
+        .event_handler(ReactionRoles::new()?)
+        .event_handler(InfoHandler);
 
     if cfg.reaction_logging.enabled {
         client = client.event_handler(ReactionLogger::new(base_handler.clone()));
+    }
+
+    if cfg.bot.rich_presence_enabled {
+        client = client.event_handler(PresenceHandler::new(base_handler.clone()));
     }
 
     let _reaction_roles = Arc::new(crate::config::reaction_roles::load()?);

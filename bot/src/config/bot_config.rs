@@ -1,4 +1,5 @@
 use anyhow::{Result, bail};
+use poise::serenity_prelude::{ActivityData, OnlineStatus};
 use serde::{Deserialize, Serialize};
 
 use crate::utils::io::load_yaml_config;
@@ -76,6 +77,35 @@ impl Bot {
         }
 
         Ok(())
+    }
+
+    pub fn get_activity(&self) -> Option<ActivityData> {
+        if self.rich_presence_enabled {
+            match self.rich_presence_type.as_str() {
+                "playing" => Some(ActivityData::playing(self.rich_presence.clone())),
+                "watching" => Some(ActivityData::watching(self.rich_presence.clone())),
+                "listening to" => Some(ActivityData::listening(self.rich_presence.clone())),
+                "streaming" => Some(
+                    ActivityData::streaming(
+                        self.rich_presence.clone(),
+                        "https://www.twitch.tv/arthurdw_",
+                    )
+                    .unwrap(),
+                ),
+                _ => None,
+            }
+        } else {
+            None
+        }
+    }
+
+    pub fn get_status(&self) -> OnlineStatus {
+        match self.bot_status.as_str() {
+            "dnd" => OnlineStatus::DoNotDisturb,
+            "idle" => OnlineStatus::Idle,
+            "invisible" => OnlineStatus::Invisible,
+            _ => OnlineStatus::Online,
+        }
     }
 }
 
