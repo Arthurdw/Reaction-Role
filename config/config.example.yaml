@@ -5,6 +5,8 @@ console:
   level: info # Valid levels: trace, debug, info, warn
 
 bot:
+  prefix: "!" # still works but slash commands are present
+  prefix_enabled: true
   rich_presence_enabled: true
   rich_presence: "reactions since 2019"
   rich_presence_type: "watching" # Valid types: playing, watching, listening to, streaming
@@ -22,3 +24,12 @@ token:
 
   # If not token_env_enabled, provide a bot token here.
   token: "XXXYOURBOTTOKENHEREXXX"
+
+leveling:
+  enabled: false
+  max_top: 25
+  notification_guild: 123456789987654321
+  notification_channel: 123456789987654321
+  roles:
+    # level: roleid
+    2: 123456789987654321

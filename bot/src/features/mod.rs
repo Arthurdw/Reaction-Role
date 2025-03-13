@@ -2,6 +2,7 @@ use std::sync::Arc;
 
 use crate::config::{BotConfig, lang::Lang};
 
+pub mod exp_system;
 pub mod info;
 pub mod presence;
 pub mod reaction_logger;

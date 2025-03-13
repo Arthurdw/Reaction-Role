@@ -20,6 +20,8 @@
             cargo-nextest
             cargo-watch
             sqlx-cli
+            openssl
+            pkg-config
           ];
 
           shellHook = ''

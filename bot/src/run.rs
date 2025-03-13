@@ -1,30 +1,29 @@
 use std::sync::Arc;
 
-use anyhow::{Result, bail};
+use anyhow::{Error, Result, bail};
 
 use crate::{
-    config::BotConfig,
+    config::{BotConfig, lang::Lang},
     features::{
-        BaseHandler, info::InfoHandler, presence::PresenceHandler, reaction_logger::ReactionLogger,
+        BaseHandler,
+        exp_system::{ExpSystemDatabase, ExpSystemMessageHandler, get_commands},
+        info::InfoHandler,
+        presence::PresenceHandler,
+        reaction_logger::ReactionLogger,
         reaction_roles::ReactionRoles,
     },
 };
-use poise::serenity_prelude::{self as serenity, GatewayIntents};
+use poise::{
+    PrefixFrameworkOptions,
+    serenity_prelude::{self as serenity, GatewayIntents},
+};
 
-struct Data {}
-type Error = Box<dyn std::error::Error + Send + Sync>;
-type Context<'a> = poise::Context<'a, Data, Error>;
-
-#[poise::command(slash_command, prefix_command)]
-async fn age(
-    ctx: Context<'_>,
-    #[description = "Selected user"] user: Option<serenity::User>,
-) -> Result<(), Error> {
-    let u = user.as_ref().unwrap_or_else(|| ctx.author());
-    let response = format!("{}'s account was created at {}", u.name, u.created_at());
-    ctx.say(response).await?;
-    Ok(())
+pub struct Data {
+    pub exp_db: Option<Arc<ExpSystemDatabase>>,
+    pub config: Arc<BotConfig>,
+    pub lang: Arc<Lang>,
 }
+pub type Context<'a> = poise::Context<'a, Data, Error>;
 
 fn get_token(config: &BotConfig) -> Result<String> {
     if config.token.token_env_enabled {
@@ -43,18 +42,38 @@ fn get_token(config: &BotConfig) -> Result<String> {
 pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
     let lang_config = Arc::new(crate::config::lang::load()?);
     let base_handler = Arc::new(BaseHandler::new(cfg.clone(), lang_config.clone()));
+    let shared_config = cfg.clone();
+    let exp_db = {
+        if cfg.leveling.enabled {
+            Some(Arc::new(ExpSystemDatabase::new().await?))
+        } else {
+            None
+        }
+    };
 
     let intents = GatewayIntents::all();
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![age()],
+            commands: get_commands(),
+            prefix_options: PrefixFrameworkOptions {
+                prefix: if cfg.bot.prefix_enabled {
+                    Some(cfg.bot.prefix.clone())
+                } else {
+                    None
+                },
+                ..Default::default()
+            },
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
             Box::pin(async move {
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
-                Ok(Data {})
+                Ok(Data {
+                    exp_db,
+                    config: shared_config,
+                    lang: lang_config.clone(),
+                })
             })
         })
         .build();
@@ -70,6 +89,13 @@ pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
 
     if cfg.bot.rich_presence_enabled {
         client = client.event_handler(PresenceHandler::new(base_handler.clone()));
+    }
+
+    if cfg.leveling.enabled {
+        client = client.event_handler(ExpSystemMessageHandler::new(
+            base_handler.clone(),
+            Arc::new(ExpSystemDatabase::new().await?),
+        ));
     }
 
     let _reaction_roles = Arc::new(crate::config::reaction_roles::load()?);

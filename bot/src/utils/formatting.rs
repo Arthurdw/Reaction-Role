@@ -1,27 +1,29 @@
-use poise::serenity_prelude::{ChannelId, Member, Mentionable, PartialGuild, ReactionType};
+use poise::serenity_prelude::{ChannelId, Mentionable, PartialGuild, ReactionType, User};
 use tracing::error;
 
-pub fn format_user(target: &str, message: &mut String, member: &Member) {
+pub fn apply_format(message: &mut String, to: &str, value: &str) {
+    *message = message.replace(&format!("{{{}}}", to), value);
+}
+
+pub fn format_user(target: &str, message: &mut String, user: &User) {
     let attributes = vec![
-        ("mention", member.mention().to_string()),
-        ("name", member.user.name.clone()),
+        ("mention", user.mention().to_string()),
+        ("name", user.name.clone()),
         (
             "discriminator",
-            member
-                .user
-                .discriminator
-                .map_or("".to_string(), |d| d.to_string()),
+            user.discriminator.map_or("".to_string(), |d| d.to_string()),
         ),
-        ("id", member.user.id.to_string()),
+        ("id", user.id.to_string()),
     ];
 
     for (key, value) in attributes {
-        *message = message.replace(&format!("{{{}.{}}}", target, key), value.as_str());
+        apply_format(message, &format!("{}.{}", target, key), value.as_str());
     }
+    apply_format(message, "member", user.display_name());
 }
 
-pub fn format_member(message: &mut String, member: &Member) {
-    format_user("member", message, member)
+pub fn format_member(message: &mut String, user: &User) {
+    format_user("member", message, user)
 }
 
 pub fn format_partial_guild(message: &mut String, guild: &PartialGuild) {
@@ -32,7 +34,7 @@ pub fn format_partial_guild(message: &mut String, guild: &PartialGuild) {
     ];
 
     for (key, value) in attributes {
-        *message = message.replace(&format!("{{guild.{}}}", key), value.as_str());
+        apply_format(message, &format!("guild.{}", key), value.as_str());
     }
 }
 
@@ -43,7 +45,7 @@ pub fn format_channel_id(message: &mut String, channel_id: &ChannelId) {
     ];
 
     for (key, value) in attributes {
-        *message = message.replace(&format!("{{channel.{}}}", key), value.as_str());
+        apply_format(message, &format!("channel.{}", key), value.as_str());
     }
 }
 
@@ -57,5 +59,5 @@ pub fn format_reaction(message: &mut String, reaction: &ReactionType) {
         }
     };
 
-    *message = message.replace("{emoji}", &value);
+    apply_format(message, "emoji", &value);
 }

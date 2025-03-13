@@ -2,6 +2,7 @@
 */target
 .direnv
 .env
+db
 
 config/config.yaml
 config/lang.yaml

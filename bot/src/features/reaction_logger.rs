@@ -1,3 +1,4 @@
+// TODO:fix timestamps
 use anyhow::{Result, bail};
 use std::sync::Arc;
 
@@ -9,7 +10,10 @@ use tracing::{debug, error, info};
 
 use crate::{
     config::lang::ReactionEvent,
-    utils::formatting::{format_channel_id, format_member, format_partial_guild, format_reaction},
+    utils::{
+        color::random_color,
+        formatting::{format_channel_id, format_member, format_partial_guild, format_reaction},
+    },
 };
 
 use super::BaseHandler;
@@ -33,7 +37,7 @@ impl ReactionLogger {
     ) -> impl Fn(&str) -> String {
         move |message| {
             let mut message = message.to_string();
-            format_member(&mut message, member);
+            format_member(&mut message, &member.user);
             format_partial_guild(&mut message, guild);
             format_channel_id(&mut message, channel_id);
             format_reaction(&mut message, reaction);
@@ -89,7 +93,7 @@ impl ReactionLogger {
         let fmt = self.build_formatter(&member, &guild, &channel_id, &reaction.emoji);
 
         let color = if msg.color.random {
-            Color::new(rand::random::<u32>() % 16777215)
+            random_color()
         } else {
             Color::new(msg.color.color)
         };

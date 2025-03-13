@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use anyhow::{Result, bail};
 use poise::serenity_prelude::{ActivityData, OnlineStatus};
 use serde::{Deserialize, Serialize};
@@ -10,6 +12,7 @@ pub struct BotConfig {
     pub bot: Bot,
     pub reaction_logging: ReactionLogging,
     pub token: Token,
+    pub leveling: Leveling,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -48,6 +51,8 @@ pub struct Bot {
     pub rich_presence: String,
     pub rich_presence_type: String,
     pub bot_status: String,
+    pub prefix: String,
+    pub prefix_enabled: bool,
 }
 
 impl Bot {
@@ -115,6 +120,15 @@ pub struct Token {
     pub token_env_enabled: bool,
     pub token_env: String,
     pub token: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Leveling {
+    pub enabled: bool,
+    pub max_top: u64,
+    pub notifications_guild: u64,
+    pub notifications_channel: u64,
+    pub roles: HashMap<u64, u64>,
 }
 
 pub fn load() -> Result<BotConfig> {
