@@ -1,0 +1,18 @@
+[package]
+name = "bot"
+version = "0.1.0"
+readme.workspace = true
+description.workspace = true
+authors.workspace = true
+categories.workspace = true
+edition.workspace = true
+keywords.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+poise = "0.6.1"
