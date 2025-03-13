@@ -4,7 +4,7 @@ reaction_logger:
     content: |
       User: {member.mention} (`{member.id}`)
       Channel: {channel.mention} (`{channel.id}`)
-      Emoji: {emoji.name}
+      Emoji: {emoji}
     footer:
       text: "Emoji Logger"
       icon: "{guild.icon_url}"
@@ -18,7 +18,7 @@ reaction_logger:
     content: |
       User: {member.mention} (`{member.id}`)
       Channel: {channel.mention} (`{channel.id}`)
-      Emoji: {emoji.name}
+      Emoji: {emoji}
     footer:
       text: "Emoji Logger"
       icon: "{guild.icon_url}"

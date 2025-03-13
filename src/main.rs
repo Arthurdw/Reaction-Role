@@ -1,11 +1,11 @@
 use anyhow::Result;
-use std::path::Path;
+use std::{path::Path, sync::Arc};
 use tracing::{debug, info};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     color_eyre::install().ok();
-    let bot_config = bot::config::load()?;
+    let bot_config = Arc::new(bot::config::load()?);
     let subscriber = tracing_subscriber::fmt()
         .with_max_level(bot_config.console.tracing_level())
         .finish();
@@ -20,5 +20,5 @@ async fn main() -> Result<()> {
     }
 
     info!("Starting bot...");
-    bot::run(&bot_config).await
+    bot::run(bot_config).await
 }

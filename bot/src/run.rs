@@ -1,7 +1,9 @@
+use std::sync::Arc;
+
 use anyhow::{Result, bail};
 
-use crate::config::BotConfig;
 use crate::events::reaction_logger::ReactionLogger;
+use crate::{config::BotConfig, events::BaseHandler};
 use poise::serenity_prelude::{self as serenity, GatewayIntents};
 
 struct Data {}
@@ -33,7 +35,10 @@ fn get_token(config: &BotConfig) -> Result<String> {
     Ok(config.token.token.clone())
 }
 
-pub async fn start(cfg: &BotConfig) -> Result<()> {
+pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
+    let lang_config = Arc::new(crate::config::lang::load()?);
+    let base_handler = Arc::new(BaseHandler::new(cfg.clone(), lang_config.clone()));
+
     let intents = GatewayIntents::all();
 
     let framework = poise::Framework::builder()
@@ -49,10 +54,14 @@ pub async fn start(cfg: &BotConfig) -> Result<()> {
         })
         .build();
 
-    let client = serenity::ClientBuilder::new(get_token(cfg)?, intents)
-        .event_handler(ReactionLogger)
-        .framework(framework)
-        .await;
+    let mut client = serenity::ClientBuilder::new(get_token(&cfg)?, intents).framework(framework);
 
-    Ok(client.unwrap().start().await?)
+    // TODO: write an epic macro for dynamic this
+    if cfg.reaction_logging.enabled {
+        client = client.event_handler(ReactionLogger::new(base_handler.clone()));
+    }
+
+    let _reaction_roles = Arc::new(crate::config::reaction_roles::load()?);
+
+    Ok(client.await?.start().await?)
 }
