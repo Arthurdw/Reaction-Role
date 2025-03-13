@@ -1,7 +1,7 @@
 use poise::serenity_prelude::{Context, EventHandler, Reaction, async_trait};
 use tracing::{info, instrument};
 
-pub(crate) struct ReactionLogger;
+pub struct ReactionLogger;
 
 #[async_trait]
 impl EventHandler for ReactionLogger {

@@ -1,1 +1,1 @@
-pub(crate) mod reaction_logger;
+pub mod reaction_logger;

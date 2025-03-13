@@ -1,10 +1,10 @@
-use anyhow::{Result, bail};
+use anyhow::{bail, Result};
 use serde::{Deserialize, Serialize};
 
 use crate::utils::io::load_yaml_config;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub(crate) struct BotConfig {
+pub struct BotConfig {
     pub updater: Updater,
     pub console: Console,
     pub bot: Bot,
@@ -19,9 +19,32 @@ pub struct Updater {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Console {
-    pub colors: bool,
-    pub print_imports: bool,
-    pub print_log: bool,
+    pub level: String,
+}
+
+impl Console {
+    pub fn validate(&self) -> Result<()> {
+        let valid_levels = ["trace", "debug", "info", "warn", "error"];
+        if !valid_levels.contains(&self.level.as_str()) {
+            bail!(
+                "Invalid log level: {}. Valid values are: {:?}",
+                self.level,
+                valid_levels
+            );
+        }
+        Ok(())
+    }
+
+    pub fn tracing_level(&self) -> tracing::Level {
+        match self.level.as_str() {
+            "trace" => tracing::Level::TRACE,
+            "debug" => tracing::Level::DEBUG,
+            "info" => tracing::Level::INFO,
+            "warn" => tracing::Level::WARN,
+            "error" => tracing::Level::ERROR,
+            _ => unreachable!(),
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -70,8 +93,9 @@ pub struct Token {
     pub token: String,
 }
 
-pub(crate) fn load() -> Result<BotConfig> {
+pub fn load() -> Result<BotConfig> {
     let config = load_yaml_config::<BotConfig>("./config/config.yaml")?;
+    config.console.validate()?;
     config.bot.validate()?;
     Ok(config)
 }

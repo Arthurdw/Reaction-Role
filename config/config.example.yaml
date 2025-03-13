@@ -5,9 +5,7 @@ updater:
   enabled: false
 
 console:
-  colors: true
-  print_imports: true
-  print_log: true
+  level: info # Valid levels: trace, debug, info, warn
 
 bot:
   rich_presence_enabled: true

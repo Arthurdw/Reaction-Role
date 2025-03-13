@@ -1,6 +1,6 @@
 use anyhow::{Result, bail};
 
-use crate::config::config::BotConfig;
+use crate::config::BotConfig;
 use crate::events::reaction_logger::ReactionLogger;
 use poise::serenity_prelude::{self as serenity, GatewayIntents};
 
@@ -33,7 +33,7 @@ fn get_token(config: &BotConfig) -> Result<String> {
     Ok(config.token.token.clone())
 }
 
-pub(crate) async fn start(cfg: &BotConfig) -> Result<()> {
+pub async fn start(cfg: &BotConfig) -> Result<()> {
     let intents = GatewayIntents::all();
 
     let framework = poise::Framework::builder()
