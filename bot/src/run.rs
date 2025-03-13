@@ -2,11 +2,13 @@ use std::sync::Arc;
 
 use anyhow::{Result, bail};
 
-use crate::events::info::InfoHandler;
-use crate::events::presence::PresenceHandler;
-use crate::events::reaction_logger::ReactionLogger;
-use crate::events::reaction_roles::ReactionRoles;
-use crate::{config::BotConfig, events::BaseHandler};
+use crate::{
+    config::BotConfig,
+    features::{
+        BaseHandler, info::InfoHandler, presence::PresenceHandler, reaction_logger::ReactionLogger,
+        reaction_roles::ReactionRoles,
+    },
+};
 use poise::serenity_prelude::{self as serenity, GatewayIntents};
 
 struct Data {}
