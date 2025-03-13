@@ -3,6 +3,7 @@ use std::sync::Arc;
 use anyhow::{Result, bail};
 
 use crate::events::reaction_logger::ReactionLogger;
+use crate::events::reaction_roles::ReactionRoles;
 use crate::{config::BotConfig, events::BaseHandler};
 use poise::serenity_prelude::{self as serenity, GatewayIntents};
 
@@ -54,9 +55,10 @@ pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
         })
         .build();
 
-    let mut client = serenity::ClientBuilder::new(get_token(&cfg)?, intents).framework(framework);
+    let mut client = serenity::ClientBuilder::new(get_token(&cfg)?, intents)
+        .framework(framework)
+        .event_handler(ReactionRoles::new()?);
 
-    // TODO: write an epic macro for dynamic this
     if cfg.reaction_logging.enabled {
         client = client.event_handler(ReactionLogger::new(base_handler.clone()));
     }
