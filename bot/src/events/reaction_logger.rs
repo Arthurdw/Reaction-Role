@@ -23,9 +23,7 @@ impl ReactionLogger {
         info!("Enabled reaction logging");
         Self { base }
     }
-}
 
-impl ReactionLogger {
     fn build_formatter(
         &self,
         member: &Member,
