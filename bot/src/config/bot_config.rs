@@ -6,16 +6,10 @@ use crate::utils::io::load_yaml_config;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BotConfig {
-    pub updater: Updater,
     pub console: Console,
     pub bot: Bot,
     pub reaction_logging: ReactionLogging,
     pub token: Token,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Updater {
-    pub enabled: bool,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

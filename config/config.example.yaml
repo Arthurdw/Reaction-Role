@@ -1,9 +1,6 @@
 # Welcome to the standard bot config file.
 # In this file you can manage the general bot behavior.
 
-updater:
-  enabled: false
-
 console:
   level: info # Valid levels: trace, debug, info, warn
 
