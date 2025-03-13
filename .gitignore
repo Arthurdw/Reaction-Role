@@ -2,3 +2,7 @@
 */target
 .direnv
 .env
+
+config/config.yaml
+config/lang.yaml
+config/reaction_roles.yaml

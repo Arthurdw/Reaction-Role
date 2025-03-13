@@ -1,0 +1,29 @@
+# Welcome to the standard bot config file.
+# In this file you can manage the general bot behavior.
+
+updater:
+  enabled: false
+
+console:
+  colors: true
+  print_imports: true
+  print_log: true
+
+bot:
+  rich_presence_enabled: true
+  rich_presence: "reactions since 2019"
+  rich_presence_type: "streaming" # Valid types: playing, watching, listening to, streaming
+  bot_status: "dnd" # Valid types: online, dnd, idle, invisible
+
+reaction_logging:
+  enabled: false
+  log_guild: 123456789987654321
+  log_channel: 123456789987654321
+
+token:
+  # Environment variable token, do not enable unless you know what you are doing.
+  token_env_enabled: true
+  token_env: "DISCORD_TOKEN"
+
+  # If not token_env_enabled, provide a bot token here.
+  token: "XXXYOURBOTTOKENHEREXXX"

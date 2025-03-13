@@ -1,0 +1,28 @@
+reaction_logger:
+  added:
+    title: "Emoji added:"
+    content: |
+      User: {member.mention} (`{member.id}`)
+      Channel: {channel.mention} (`{channel.id}`)
+      Emoji: {emoji.name}
+    footer:
+      text: "Emoji Logger"
+      icon: "{guild.icon_url}"
+      timestamp: true
+    color:
+      random: false
+      color: 0x00ff00
+
+  removed:
+    title: "Emoji removed:"
+    content: |
+      User: {member.mention} (`{member.id}`)
+      Channel: {channel.mention} (`{channel.id}`)
+      Emoji: {emoji.name}
+    footer:
+      text: "Emoji Logger"
+      icon: "{guild.icon_url}"
+      timestamp: true
+    color:
+      random: false
+      color: 0xff0000

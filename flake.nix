@@ -17,6 +17,9 @@
             rust-bin.stable.latest.default
             sccache
             rust-analyzer
+            cargo-nextest
+            cargo-watch
+            sqlx-cli
           ];
 
           shellHook = ''

@@ -1,7 +1,10 @@
+mod config;
 mod events;
+mod utils;
 
 use anyhow::Result;
 
+use config::config as cfg;
 use events::reaction_logger::ReactionLogger;
 use poise::serenity_prelude::{self as serenity, GatewayIntents};
 
@@ -23,6 +26,7 @@ async fn age(
 pub async fn run() -> Result<()> {
     let token = std::env::var("DISCORD_TOKEN").expect("missing DISCORD_TOKEN");
     let intents = GatewayIntents::all();
+    let _bot_config = cfg::load()?;
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {

@@ -1,0 +1,11 @@
+# Format:
+# reaction_roles:
+#   messageId:
+#     - [emoji, roleId]
+#     - [emoji, roleId]
+#   messageId:
+#     - [emoji, roleId]
+
+reaction_roles:
+  123456789987654321:
+    - ["😃", 123456789987654321]
