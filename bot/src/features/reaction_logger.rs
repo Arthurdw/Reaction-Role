@@ -1,4 +1,3 @@
-// TODO:fix timestamps
 use anyhow::{Result, bail};
 use std::sync::Arc;
 
@@ -98,20 +97,19 @@ impl ReactionLogger {
             Color::new(msg.color.color)
         };
 
+        let mut embed = CreateEmbed::new()
+            .title(fmt(&msg.title))
+            .description(fmt(&msg.content))
+            .footer(CreateEmbedFooter::new(fmt(&msg.footer.text)).icon_url(fmt(&msg.footer.icon)))
+            .color(color);
+
+        if msg.footer.timestamp {
+            let now = chrono::Utc::now();
+            embed = embed.timestamp(now);
+        }
+
         if let Err(e) = channel_id
-            .send_message(
-                &ctx.http,
-                CreateMessage::new().embed(
-                    CreateEmbed::new()
-                        .title(fmt(&msg.title))
-                        .description(fmt(&msg.content))
-                        .footer(
-                            CreateEmbedFooter::new(fmt(&msg.footer.text))
-                                .icon_url(fmt(&msg.footer.icon)),
-                        )
-                        .color(color),
-                ),
-            )
+            .send_message(&ctx.http, CreateMessage::new().embed(embed))
             .await
         {
             error!("Error sending message: {:?}", e);
