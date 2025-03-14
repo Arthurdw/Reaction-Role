@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: rust_app
+    restart: unless-stopped
+    volumes:
+      - ./db:/app/db
+      - ./config:/app/config
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
