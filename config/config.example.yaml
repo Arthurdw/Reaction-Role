@@ -5,8 +5,9 @@ console:
   level: info # Valid levels: trace, debug, info, warn
 
 bot:
-  prefix: "!" # still works but slash commands are present
   prefix_enabled: true
+  prefix: "!" # still works but slash commands are present
+
   rich_presence_enabled: true
   rich_presence: "reactions since 2019"
   rich_presence_type: "watching" # Valid types: playing, watching, listening to, streaming

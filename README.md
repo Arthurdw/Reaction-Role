@@ -13,7 +13,62 @@ This is a easy to use Discord bot with human friendly configuration files.
 
 ### Features
 
--
+- Emoij Reaction Roles (also works with custom emoji's)
+- Experience/Leveling system with leaderboard
+- Token configurable from env (also loads .env) or config file
+- Reaction logging
+- Chat and slash command support (configurable)
+- Configurable rich presence
+- Configurable verbose logging
+
+## Getting started
+
+### Discord setup
+
+TODO: write this section with images etc
+
+### Configuring the bot
+
+TODO: write this section with images etc
+
+### Running the bot (Docker)
+
+Now that you have your bot token, you can use the provided docker compose file
+to easily get your bot up and running.
+
+In the project directory _(where the `docker-compose.yml` file is located)_, run
+the following command:
+
+```bash
+docker compose up
+```
+
+If you have just pulled an updated version of the bot, you might want to rebuild
+the image:
+
+```bash
+docker compose up --build
+```
+
+#### Running in the background
+
+To run the bot in the background, you can use the `-d` flag:
+
+```bash
+docker compose up -d
+```
+
+### Running from source
+
+This bot is written in Rust, so you will need to have Rust installed on your
+system. Openssl is also required for the bot to work. If you are using the
+Nix package manager, you can load the `flake.nix` file.
+
+Once all dependencies are installed, you can run the bot with the following
+
+```bash
+cargo run --release
+```
 
 ## Migrating from the Python version
 
