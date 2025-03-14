@@ -102,4 +102,4 @@ You are always free to donate me though PayPal.
 
 ### Special thanks
 
-Special thanks to `CombatMedic02#2610` for supporting me in this project ♥
+Special thanks to `combatmedic02` for supporting me in this project ♥
