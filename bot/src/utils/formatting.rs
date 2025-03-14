@@ -1,4 +1,4 @@
-use poise::serenity_prelude::{ChannelId, Mentionable, PartialGuild, ReactionType, User};
+use poise::serenity_prelude::{ChannelId, Mentionable, PartialGuild, ReactionType, RoleId, User};
 use tracing::error;
 
 pub fn apply_format(message: &mut String, to: &str, value: &str) {
@@ -60,4 +60,15 @@ pub fn format_reaction(message: &mut String, reaction: &ReactionType) {
     };
 
     apply_format(message, "emoji", &value);
+}
+
+pub fn format_role(message: &mut String, role: &RoleId) {
+    let attributes = vec![
+        ("id", role.to_string()),
+        ("mention", role.mention().to_string()),
+    ];
+
+    for (key, value) in attributes {
+        apply_format(message, &format!("role.{}", key), value.as_str());
+    }
 }

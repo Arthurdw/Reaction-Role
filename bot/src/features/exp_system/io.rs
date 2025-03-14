@@ -44,13 +44,18 @@ impl Database {
         Ok(db)
     }
 
-    pub async fn get_user_data(&self, user_id: u64) -> Result<models::UserData> {
-        debug!("[DB] Fetching user data for user_id: {}", user_id);
-        let exp: i64 = sqlx::query("SELECT exp FROM users WHERE id=$1")
+    async fn get_user_exp(&self, user_id: u64) -> Result<i64> {
+        debug!("[DB] Fetching user experience for user_id: {}", user_id);
+        Ok(sqlx::query("SELECT exp FROM users WHERE id=$1")
             .bind(user_id as i64)
             .fetch_one(&self.pool)
             .await
-            .map_or(0, |row| row.get("exp"));
+            .map_or(0, |row| row.get("exp")))
+    }
+
+    pub async fn get_user_data(&self, user_id: u64) -> Result<models::UserData> {
+        debug!("[DB] Fetching user data for user_id: {}", user_id);
+        let exp = self.get_user_exp(user_id).await?;
 
         debug!("[DB] Fetching user position for user_id: {}", user_id);
         let position: u64 =
@@ -74,11 +79,11 @@ impl Database {
         })
     }
 
-    pub async fn add_experience(&self, user_id: u64, exp: i64) -> Result<i64> {
+    pub async fn add_experience(&self, user_id: u64, exp: i64) -> Result<(i64, i64)> {
         debug!("[DB] Adding experience to user_id: {}", user_id);
-        sqlx::query("INSERT OR IGNORE INTO users (id, exp) VALUES ($1, $2)")
+        let before = self.get_user_exp(user_id).await?;
+        sqlx::query("INSERT OR IGNORE INTO users (id, exp) VALUES ($1, 0)")
             .bind(user_id as i64)
-            .bind(exp)
             .execute(&self.pool)
             .await?;
 
@@ -88,12 +93,7 @@ impl Database {
             .execute(&self.pool)
             .await?;
 
-        let row: (i64,) = sqlx::query_as("SELECT exp FROM users WHERE id = $1")
-            .bind(user_id as i64)
-            .fetch_one(&self.pool)
-            .await?;
-
-        Ok(row.0)
+        Ok((before, before + exp))
     }
 
     pub async fn get_top(&self, limit: u64) -> Result<Vec<models::UserData>> {

@@ -44,6 +44,21 @@ pub async fn level(
         db.as_ref().unwrap().clone()
     };
     let lang = &ctx.data().lang.exp_system;
+
+    if u.bot {
+        let mut msg = lang.bot.clone();
+        format_member(&mut msg, u);
+
+        ctx.send(
+            CreateReply::default()
+                .content(msg)
+                .ephemeral(true)
+                .reply(true),
+        )
+        .await?;
+        return Ok(());
+    }
+
     let data = db.get_user_data(u.id.get()).await?;
     let fmt = build_formatter(u, &data);
 

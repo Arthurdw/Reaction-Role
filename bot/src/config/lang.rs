@@ -36,6 +36,7 @@ pub struct ExpSystem {
     pub title: String,
     pub message: String,
     pub top_msg: String,
+    pub bot: String,
     pub top_title: String,
     pub top_no_users: String,
     pub top_line: String,
