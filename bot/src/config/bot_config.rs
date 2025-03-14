@@ -13,6 +13,7 @@ pub struct BotConfig {
     pub reaction_logging: ReactionLogging,
     pub token: Token,
     pub leveling: Leveling,
+    pub reaction_roles: HashMap<u64, Vec<(String, u64)>>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

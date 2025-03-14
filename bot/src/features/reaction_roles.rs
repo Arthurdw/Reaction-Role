@@ -1,12 +1,12 @@
-use anyhow::Result;
+use std::sync::Arc;
 
 use poise::serenity_prelude::{Context, EventHandler, Reaction, ReactionType, RoleId, async_trait};
 use tracing::info;
 
-use crate::config::reaction_roles::{ReactionRolesConfig, load};
+use super::BaseHandler;
 
 pub struct ReactionRoles {
-    cfg: ReactionRolesConfig,
+    base: Arc<BaseHandler>,
 }
 
 enum ReactionRoleAction {
@@ -15,9 +15,9 @@ enum ReactionRoleAction {
 }
 
 impl ReactionRoles {
-    pub fn new() -> Result<Self> {
+    pub fn new(base: Arc<BaseHandler>) -> Self {
         info!("Enabled reaction roles");
-        Ok(Self { cfg: load()? })
+        Self { base }
     }
 
     async fn handle_reaction_event(
@@ -26,7 +26,11 @@ impl ReactionRoles {
         reaction: Reaction,
         action: ReactionRoleAction,
     ) {
-        let message = self.cfg.reaction_roles.get(&reaction.message_id.get());
+        let message = self
+            .base
+            .config
+            .reaction_roles
+            .get(&reaction.message_id.get());
 
         if message.is_none() {
             return;

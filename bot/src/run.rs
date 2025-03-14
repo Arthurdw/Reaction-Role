@@ -80,7 +80,7 @@ pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
 
     let mut client = serenity::ClientBuilder::new(get_token(&cfg)?, intents)
         .framework(framework)
-        .event_handler(ReactionRoles::new()?)
+        .event_handler(ReactionRoles::new(base_handler.clone()))
         .event_handler(InfoHandler);
 
     if cfg.reaction_logging.enabled {
@@ -97,8 +97,6 @@ pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
             Arc::new(ExpSystemDatabase::new().await?),
         ));
     }
-
-    let _reaction_roles = Arc::new(crate::config::reaction_roles::load()?);
 
     Ok(client.await?.start().await?)
 }
