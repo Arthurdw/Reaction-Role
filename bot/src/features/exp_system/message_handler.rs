@@ -1,7 +1,8 @@
 use anyhow::Result;
+use itertools::Itertools;
 use poise::serenity_prelude::{
-    CacheHttp, ChannelId, Context, CreateEmbed, CreateMessage, EventHandler, Message, RoleId, User,
-    async_trait,
+    CacheHttp, ChannelId, Context, CreateEmbed, CreateMessage, EventHandler, GuildId, Message,
+    RoleId, User, async_trait,
 };
 use std::sync::Arc;
 use tracing::{debug, error, info};
@@ -109,14 +110,40 @@ impl MessageHandler {
 
         debug!("User {} leveled up", user.id.get());
 
+        let cfg = &self.base.config.leveling;
+
+        let roles_the_user_should_have = &cfg
+            .roles
+            .iter()
+            .filter(|(level, _)| **level as i64 <= level_after)
+            .sorted_by_key(|(level, _)| *level)
+            .map(|(_, role)| RoleId::new(*role))
+            .collect::<Vec<RoleId>>();
+
+        let role = {
+            let guild = GuildId::new(cfg.guild);
+            let member = guild.member(&ctx.http(), user.id).await?;
+            let mut applied_role = None;
+            for role in roles_the_user_should_have {
+                debug!("User {} should have role {}", user.id.get(), role);
+                if !user.has_role(&ctx.http(), &guild, role).await? {
+                    debug!("User {} does not have role {}", user.id.get(), role);
+                    member.add_role(&ctx.http(), role).await?;
+                    applied_role = Some(role);
+                }
+            }
+
+            applied_role
+        };
+
         // Don't send a message for every level up, only every 5 levels if level is less than 30
-        if level_after <= 30 && level_after % 5 != 0 {
+        // unless a role was applied
+        if level_after <= 30 && level_after % 5 != 0 && role.is_none() {
             debug!("Hiding levelup message for user {}", user.id.get());
             return Ok(());
         }
 
-        // TODO: check on levelup if user is allowed a role
-        self.send_levelup_message(ctx, user, None).await?;
+        self.send_levelup_message(ctx, user, role).await?;
 
         Ok(())
     }

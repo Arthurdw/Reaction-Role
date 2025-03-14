@@ -126,7 +126,7 @@ pub struct Token {
 pub struct Leveling {
     pub enabled: bool,
     pub max_top: u64,
-    pub notifications_guild: u64,
+    pub guild: u64,
     pub notifications_channel: u64,
     pub roles: HashMap<u64, u64>,
 }

@@ -28,7 +28,7 @@ token:
 leveling:
   enabled: false
   max_top: 25
-  notification_guild: 123456789987654321
+  guild: 123456789987654321
   notification_channel: 123456789987654321
   roles:
     # level: roleid
