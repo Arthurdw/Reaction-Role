@@ -54,6 +54,7 @@ jobs:
       - name: Bump version
         run: |
           ls -lah
+          whoami
 
           bump_type="${{ env.bump_type }}"
           echo "Bumping version using: $bump_type"
