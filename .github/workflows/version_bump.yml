@@ -44,6 +44,8 @@ jobs:
 
           PR_LABELS=$($PR_LABELS  | jq -r '.labels | .[].name')
 
+          echo "$PR_LABELS"
+
           # Check for labels and determine the bump type
           if echo "$PR_LABELS" | grep -q "release:major"; then
             echo "bump_type=major" >> $GITHUB_ENV
@@ -56,7 +58,7 @@ jobs:
 
       - name: Bump version
         run: |
-          bump_type=${{ env.bump_type }}
+          bump_type="${{ env.bump_type }}"
           echo "Bumping version using: $bump_type"
           cargo release version $bump_type --execute --no-confirm
 
