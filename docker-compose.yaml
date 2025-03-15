@@ -1,10 +1,20 @@
 services:
   app:
-    build: .
-    container_name: rust_app
+    container_name: arthurdw/reaction-role:latest
     restart: unless-stopped
     volumes:
       - ./db:/app/db
       - ./config:/app/config
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_LABEL_ENABLE=true
