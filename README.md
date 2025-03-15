@@ -48,7 +48,9 @@ have lost it, you can just reset it here.
 ![Reset Bot Token](./.docs/assets/5_reset_token.jpg)
 Copy the token and save it somewhere safe (we will need this for the configuration)
 
-Our last step is to ensure the bot has the correct Discord intents enabled. We can just do this by scrolling down in the bot page and enable all intents. (or the ones that apply) Remember to save your changes.
+Our last step is to ensure the bot has the correct Discord intents enabled.
+We can just do this by scrolling down in the bot page and enable all intents.
+(or the ones that apply) Remember to save your changes.
 ![Intents](./.docs/assets/7_intents.jpg)
 
 ### Configuring the bot
@@ -85,7 +87,7 @@ docker compose up -d
 ### Running from source
 
 This bot is written in Rust, so you will need to have Rust installed on your
-system. Openssl is also required for the bot to work. If you are using the
+system. OpenSSL is also required for the bot to work. If you are using the
 Nix package manager, you can load the `flake.nix` file.
 
 Once all dependencies are installed, you can run the bot with the following
