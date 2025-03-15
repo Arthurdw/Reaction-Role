@@ -22,6 +22,7 @@
             sqlx-cli
             openssl
             pkg-config
+            docker
           ];
 
           shellHook = ''
