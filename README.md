@@ -3,6 +3,8 @@
 ![Made with](https://img.shields.io/badge/Made%20With-LOVE-%23fa4b4b?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/Arthurdw/Reaction-Role?style=flat-square)
 ![Language](https://img.shields.io/badge/Language-Rust-%23B7410E?style=flat-square)
+![Docker Image Version](https://img.shields.io/docker/v/arthurdw/reaction-role)
+![Docker Pulls](https://img.shields.io/docker/pulls/arthurdw/reaction-role)
 
 ## About
 
