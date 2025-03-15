@@ -12,12 +12,19 @@ jobs:
   deploy:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    container:
-      image: arthurdw/rust-ci:latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Mold linker
+        uses: rui314/setup-mold@v1
+
+      - name: Install cargo-release
+        run: cargo install cargo-release
 
       - name: Determine version bump
         id: version_bump
@@ -53,9 +60,6 @@ jobs:
 
       - name: Bump version
         run: |
-          ls -lah
-          whoami
-
           bump_type="${{ env.bump_type }}"
           echo "Bumping version using: $bump_type"
           cargo release version $bump_type --execute --no-confirm
