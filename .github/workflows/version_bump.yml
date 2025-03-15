@@ -40,6 +40,8 @@ jobs:
               -H "Accept: application/vnd.github+json" \
               https://api.github.com/repos/$REPO/pulls/$PR_NUMBER)
 
+          echo "$PR_LABELS"
+
           PR_LABELS=$($PR_LABELS  | jq -r '.labels | .[].name')
 
           # Check for labels and determine the bump type
