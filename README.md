@@ -25,7 +25,31 @@ This is a easy to use Discord bot with human friendly configuration files.
 
 ### Discord setup
 
-TODO: write this section with images etc
+#### Creating a bot and finding your token
+
+Go to the [Discord Developer Portal](https://discord.com/developers/applications).
+Click on `New Application` and give your bot a name.
+
+![New Application](./.docs/assets/1_developer_page.jpg)
+![Create Application](./.docs/assets/2_create_application.jpg)
+
+Then you should be redirected to the application page. Click on `Bot` in the sidebar.
+![Bot](./.docs/assets/3_application_info.jpg)
+
+Great, now we are on the page where we can manage our bot; on this page you can
+change the username, avatar and banner of your bot. You can also set your bot to
+be private (recommended but not required).
+
+In order for Reaction-Role to run on your bot we need the token, initially no
+token will be known, so we need to reset it. This token is very important and
+should be kept secret. If you ever think your token has been compromised, or you
+have lost it, you can just reset it here.
+
+![Reset Bot Token](./.docs/assets/5_reset_token.jpg)
+Copy the token and save it somewhere safe (we will need this for the configuration)
+
+Our last step is to ensure the bot has the correct Discord intents enabled. We can just do this by scrolling down in the bot page and enable all intents. (or the ones that apply) Remember to save your changes.
+![Intents](./.docs/assets/7_intents.jpg)
 
 ### Configuring the bot
 
