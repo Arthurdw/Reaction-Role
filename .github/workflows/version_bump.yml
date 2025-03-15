@@ -49,6 +49,9 @@ jobs:
             echo "bump_type=minor" >> $GITHUB_ENV
           fi
 
+          echo "labels: $PR_LABELS"
+          echo "The determined bump type is: $bump_type"
+
       - name: Bump version
         run: |
           bump_type=${{ env.bump_type }}
@@ -56,7 +59,7 @@ jobs:
           cargo release version $bump_type --execute --no-confirm
 
       - name: Extract version from Cargo.toml
-        run: echo "VERSION=$(grep '^version = ' Cargo.toml | sed -E 's/version = \"([^\"]+)\"/\1/')" >> $GITHUB_ENV
+        run: echo "VERSION=$(cargo pkgid | cut -d '@' -f 2)" >> $GITHUB_ENV
 
       - name: Commit version bump
         run: |
