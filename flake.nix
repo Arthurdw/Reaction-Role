@@ -19,6 +19,7 @@
             rust-analyzer
             cargo-nextest
             cargo-watch
+            cargo-release
             sqlx-cli
             openssl
             pkg-config
