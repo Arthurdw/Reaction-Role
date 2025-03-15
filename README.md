@@ -55,7 +55,29 @@ We can just do this by scrolling down in the bot page and enable all intents.
 
 ### Configuring the bot
 
-TODO: write this section with images etc
+Setting up the bot is easy, in the config directory you will find
+`*.example.yaml` files. Make sure to copy each of these files to a new file
+without the `.example` extension.
+
+#### Bot Authentication
+
+The bot requires a token to authenticate with Discord.
+(see [Creating a bot and finding your token](#creating-a-bot-and-finding-your-token))
+
+There are two ways to provide the bot with the token, either through an
+environment variable or through the config file.
+
+If you don't know what an environment variable is, you can just use it in the
+config file and set `token_env_enabled` to false.
+
+```yaml
+token_env_enabled: false
+token: "XXXYOURBOTTOKENHEREXXX"
+```
+
+If you want to use environment variables, you can set the `token_env_enabled` to
+true and set the key of the environment variable in the `token_env` field.
+`.env` files will also be loaded automatically.
 
 ### Running the bot (Docker)
 
@@ -123,7 +145,7 @@ or join [our discord](https://dc.arthurdw.com) and I'll help you out!
 
 ## Support this project
 
-You are always free to donate me though PayPal.  
+If you like this work, you can support me by buying me a coffee!
 [paypal.me/ArthurDeWitte](http://paypal.me/ArthurDeWitte)
 
 ### Special thanks
