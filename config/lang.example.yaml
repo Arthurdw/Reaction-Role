@@ -1,0 +1,47 @@
+reaction_logger:
+  added:
+    title: "Emoji added:"
+    content: |
+      User: {member.mention} (`{member.id}`)
+      Channel: {channel.mention} (`{channel.id}`)
+      Emoji: {emoji}
+    footer:
+      text: "Emoji Logger"
+      icon: "{guild.icon_url}"
+      timestamp: true
+    color:
+      random: false
+      color: 0x00ff00
+
+  removed:
+    title: "Emoji removed:"
+    content: |
+      User: {member.mention} (`{member.id}`)
+      Channel: {channel.mention} (`{channel.id}`)
+      Emoji: {emoji}
+    footer:
+      text: "Emoji Logger"
+      icon: "{guild.icon_url}"
+      timestamp: true
+    color:
+      random: false
+      color: 0xff0000
+
+exp_system:
+  fetching: "Fetching data..."
+  title: "{member} rank"
+  message: |
+    {member.mention} statistics:
+    Level: {data.level}
+    Exp: {data.exp}/{data.exp_next_level} *({data.left} left)*
+    Currently on server position {data.position} of {data.total}
+
+  top_msg: "The requested amount can not be more than {max}!"
+  bot: "The user {member.mention} is a bot, which don't qualify for the exp system."
+
+  top_title: "Top Users"
+  top_line: "**{idx}**. <@!{member.id}>: {data.level} *({data.exp} exp)*"
+  top_no_users: "No users have spoken!"
+
+  levelup_message: "Congratulations <@!{member.id}>, you just leveled up to level {data.level}!"
+  levelup_message_role: " And you have been awarded the {role.mention} role!"
