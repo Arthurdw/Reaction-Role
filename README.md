@@ -59,6 +59,12 @@ Setting up the bot is easy, in the config directory you will find
 `*.example.yaml` files. Make sure to copy each of these files to a new file
 without the `.example` extension.
 
+#### About the config files
+
+- `./config/config.yaml` - Contains all bot configuration
+- `./config/lang.yaml` - Contains all language strings (this is what the bot
+  sends for messages)
+
 #### Bot Authentication
 
 The bot requires a token to authenticate with Discord.
@@ -78,6 +84,26 @@ token: "XXXYOURBOTTOKENHEREXXX"
 If you want to use environment variables, you can set the `token_env_enabled` to
 true and set the key of the environment variable in the `token_env` field.
 `.env` files will also be loaded automatically.
+
+#### Configuring the reaction roles
+
+In the config, you will find a key called `reaction_roles`. This key contains a
+listing of messages that it will watch for reactions.
+
+On each message you can define several emoji's and their role (id) that should
+be given if someone reacts to it using that emoji.
+
+For custom emoij's use the emoij id.
+
+#### How to obtain a message and role id?
+
+In your Discord client, enable developer mode _(settings -> advanced)_. Now go
+to the message that you want to use and right click on the message. You should
+see a new option called `Copy ID`. This will copy the message id to your
+clipboard. Which you can then paste in the config file.
+
+For role id's, you can do the same but on the role in the server settings or on
+a user profile.
 
 ### Running the bot (Docker)
 
