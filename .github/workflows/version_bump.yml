@@ -53,6 +53,8 @@ jobs:
 
       - name: Bump version
         run: |
+          ls -lah
+
           bump_type="${{ env.bump_type }}"
           echo "Bumping version using: $bump_type"
           cargo release version $bump_type --execute --no-confirm
