@@ -74,7 +74,7 @@ There are two ways to provide the bot with the token, either through an
 environment variable or through the config file.
 
 If you don't know what an environment variable is, you can just use it in the
-config file and set `token_env_enabled` to false.
+config file and set `token_env_enabled` to `false`.
 
 ```yaml
 token_env_enabled: false
