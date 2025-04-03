@@ -20,7 +20,7 @@ reaction_logging:
 
 token:
   # Environment variable token, do not enable unless you know what you are doing.
-  token_env_enabled: true
+  token_env_enabled: false
   token_env: "DISCORD_TOKEN"
 
   # If not token_env_enabled, provide a bot token here.
