@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: arthurdw/reaction-role:latest
+    image: arthurdw/reaction-role:latest
     restart: unless-stopped
     volumes:
       - ./db:/app/db
