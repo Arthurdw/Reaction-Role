@@ -49,5 +49,5 @@ readme = "README.md"
 
 [workspace.dependencies]
 anyhow = "1.0.97"
-tokio = { version = "1.44.1", features = ["rt-multi-thread"] }
+tokio = { version = "1.44.2", features = ["rt-multi-thread"] }
 tracing = "0.1.41"
