@@ -48,6 +48,6 @@ description = "An easy to use discord.py reaction role bot, easy to configure!"
 readme = "README.md"
 
 [workspace.dependencies]
-anyhow = "1.0.97"
+anyhow = "1.0.98"
 tokio = { version = "1.44.2", features = ["rt-multi-thread"] }
 tracing = "0.1.41"
