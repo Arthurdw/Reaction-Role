@@ -22,7 +22,7 @@ tracing.workspace = true
 
 dotenvy = "0.15.7"
 tracing-subscriber = "0.3.19"
-color-eyre = "0.6.3"
+color-eyre = "0.6.4"
 
 [workspace]
 members = ["bot"]
