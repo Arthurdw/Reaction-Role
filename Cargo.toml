@@ -1,6 +1,6 @@
 [package]
 name = "reaction-role"
-version = "1.0.20"
+version = "1.0.21"
 readme.workspace = true
 description.workspace = true
 edition.workspace = true
