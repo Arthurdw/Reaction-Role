@@ -1,0 +1,13 @@
+{
+  extends: [
+    'config:recommended',
+  ],
+  labels: [
+    'dependencies',
+    'release:patch',
+  ],
+  reviewers: [
+    'arthurdw',
+  ],
+}
+
