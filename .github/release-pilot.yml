@@ -1,0 +1,38 @@
+# Release Pilot Configuration
+# https://github.com/A-Line-Services/release-pilot
+
+packages:
+  - name: reaction-role
+    ecosystem: cargo
+    path: .
+    # Not published to crates.io; the Docker image is built by the release workflow.
+    publish: false
+
+labels:
+  major: "release:major"
+  minor: "release:minor"
+  patch: "release:patch"
+  skip: "release:skip"
+
+version:
+  defaultBump: patch
+
+git:
+  tagPrefix: v
+  commitMessage: "chore(release): {version}"
+  pushVersionCommit: true
+  pushTag: true
+
+publish:
+  enabled: false
+
+githubRelease:
+  enabled: true
+  draft: false
+  generateNotes: true
+
+changelog:
+  enabled: true
+  file: CHANGELOG.md
+
+skipIfNoChanges: true
