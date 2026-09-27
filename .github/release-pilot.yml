@@ -5,8 +5,17 @@ packages:
   - name: reaction-role
     ecosystem: cargo
     path: .
-    # Not published to crates.io; the Docker image is built by the release workflow.
+    # Not published to crates.io; the Docker image below is the release artifact.
     publish: false
+
+  - name: reaction-role-image
+    ecosystem: docker
+    # Docker has no version file; don't stage the Dockerfile into the version commit
+    updateVersionFile: false
+    docker:
+      image: arthurdw/reaction-role
+      tags: ["{version}", "latest"]
+      cache: gha
 
 labels:
   major: "release:major"
@@ -24,7 +33,8 @@ git:
   pushTag: true
 
 publish:
-  enabled: false
+  # The crate isn't published, so there's nothing to wait on before the image
+  delayBetweenPackages: 0
 
 githubRelease:
   enabled: true
