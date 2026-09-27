@@ -1,0 +1,48 @@
+# Release Pilot Configuration
+# https://github.com/A-Line-Services/release-pilot
+
+packages:
+  - name: reaction-role
+    ecosystem: cargo
+    path: .
+    # Not published to crates.io; the Docker image below is the release artifact.
+    publish: false
+
+  - name: reaction-role-image
+    ecosystem: docker
+    # Docker has no version file; don't stage the Dockerfile into the version commit
+    updateVersionFile: false
+    docker:
+      image: arthurdw/reaction-role
+      tags: ["{version}", "latest"]
+      cache: gha
+
+labels:
+  major: "release:major"
+  minor: "release:minor"
+  patch: "release:patch"
+  skip: "release:skip"
+
+version:
+  defaultBump: patch
+
+git:
+  tagPrefix: v
+  commitMessage: "chore(release): {version}"
+  pushVersionCommit: true
+  pushTag: true
+
+publish:
+  # The crate isn't published, so there's nothing to wait on before the image
+  delayBetweenPackages: 0
+
+githubRelease:
+  enabled: true
+  draft: false
+  generateNotes: true
+
+changelog:
+  enabled: true
+  file: CHANGELOG.md
+
+skipIfNoChanges: true

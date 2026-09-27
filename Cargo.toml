@@ -1,6 +1,6 @@
 [package]
 name = "reaction-role"
-version = "1.0.29"
+version.workspace = true
 readme.workspace = true
 description.workspace = true
 edition.workspace = true
@@ -38,6 +38,8 @@ correctness = "deny"
 use_self = "deny"
 
 [workspace.package]
+# Keep `version` above `authors`: release-pilot only matches it before the first array.
+version = "1.0.29"
 edition = "2024"
 authors = ["Arthur De Witte <dev@arthurdw.com>"]
 license = "MIT"

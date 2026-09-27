@@ -1,0 +1,45 @@
+---
+name: Release
+run-name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Report what would be released without changing anything"
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Needed for the `cargo update --workspace` that refreshes Cargo.lock after the bump
+      - uses: dtolnay/rust-toolchain@stable
+
+      # Needed for the gha build cache (the default docker driver can't export it)
+      - uses: docker/setup-buildx-action@v4
+
+      # Bumps Cargo.toml, tags, creates the GitHub release, then builds and pushes the image
+      - name: Release with release-pilot
+        uses: a-line-services/release-pilot@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          dry-run: ${{ inputs.dry-run || false }}
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-password: ${{ secrets.DOCKER_PASSWORD }}
