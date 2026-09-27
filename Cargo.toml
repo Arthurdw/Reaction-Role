@@ -21,8 +21,8 @@ tokio.workspace = true
 tracing.workspace = true
 
 dotenvy = "0.15.7"
-tracing-subscriber = "0.3.19"
-color-eyre = "0.6.3"
+tracing-subscriber = "0.3.23"
+color-eyre = "0.6.5"
 
 [workspace]
 members = ["bot"]
@@ -50,6 +50,6 @@ description = "An easy to use discord.py reaction role bot, easy to configure!"
 readme = "README.md"
 
 [workspace.dependencies]
-anyhow = "1.0.98"
-tokio = { version = "1.44.2", features = ["rt-multi-thread"] }
-tracing = "0.1.41"
+anyhow = "1.0.104"
+tokio = { version = "1.53.1", features = ["rt-multi-thread"] }
+tracing = "0.1.44"

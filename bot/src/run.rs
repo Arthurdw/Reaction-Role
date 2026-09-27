@@ -58,7 +58,7 @@ pub async fn start(cfg: Arc<BotConfig>) -> Result<()> {
             commands: get_commands(),
             prefix_options: PrefixFrameworkOptions {
                 prefix: if cfg.bot.prefix_enabled {
-                    Some(cfg.bot.prefix.clone())
+                    Some(cfg.bot.prefix.clone().into())
                 } else {
                     None
                 },

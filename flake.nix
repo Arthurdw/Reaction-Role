@@ -15,7 +15,6 @@
           buildInputs = with pkgs; [
             # For more packages/package search go to https://search.nixos.org/
             rust-bin.stable.latest.default
-            sccache
             rust-analyzer
             cargo-nextest
             cargo-watch
@@ -27,7 +26,6 @@
           ];
 
           shellHook = ''
-            export RUSTC_WRAPPER=$(which sccache)
             export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.openssl ]}
           '';
         };
