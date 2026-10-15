@@ -10,7 +10,7 @@ pub fn load_yaml_config<T: for<'de> Deserialize<'de>>(path: &str) -> Result<T> {
     let mut file = wrap_error(File::open(path), path, "opening file")?;
     let mut contents = String::new();
     wrap_error(file.read_to_string(&mut contents), path, "reading file")?;
-    let config: T = serde_yaml::from_str(&contents)
+    let config: T = serde_saphyr::from_str(&contents)
         .with_context(|| format!("Failed to load {}: Error parsing YAML", path))?;
 
     Ok(config)
