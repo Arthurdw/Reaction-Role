@@ -39,7 +39,7 @@ use_self = "deny"
 
 [workspace.package]
 # Keep `version` above `authors`: release-pilot only matches it before the first array.
-version = "1.0.31"
+version = "1.0.32"
 edition = "2024"
 authors = ["Arthur De Witte <dev@arthurdw.com>"]
 license = "MIT"

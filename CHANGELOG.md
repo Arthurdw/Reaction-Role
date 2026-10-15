@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.32] - 2026-10-15
+
+### Bug Fixes
+
+- fix: address aikido security review ([#67](https://github.com/Arthurdw/Reaction-Role/pull/67)) by @Arthurdw
+
+### Other Changes
+
+- [Aikido] AI Fix for 3rd party Github Actions should be pinned ([#68](https://github.com/Arthurdw/Reaction-Role/pull/68)) by @aikido-autofix[bot]
+
 ## [1.0.31] - 2026-10-15
 
 ### Other Changes
