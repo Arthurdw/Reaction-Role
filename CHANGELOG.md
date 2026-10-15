@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.31] - 2026-10-15
+
+### Other Changes
+
+- [Aikido] Fix 7 security issues in quinn-proto, rustls-webpki, rand and 1 more ([#66](https://github.com/Arthurdw/Reaction-Role/pull/66)) by @aikido-autofix[bot]
+
 ## [1.0.30] - 2026-09-27
 
 ### Features
