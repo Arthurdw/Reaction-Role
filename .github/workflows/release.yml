@@ -30,14 +30,14 @@ jobs:
           fetch-depth: 0
 
       # Needed for the `cargo update --workspace` that refreshes Cargo.lock after the bump
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@686976e191b89faba57d3206551f0f330d8cb249 # stable
 
       # Needed for the gha build cache (the default docker driver can't export it)
-      - uses: docker/setup-buildx-action@v4
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
 
       # Bumps Cargo.toml, tags, creates the GitHub release, then builds and pushes the image
       - name: Release with release-pilot
-        uses: a-line-services/release-pilot@v1
+        uses: a-line-services/release-pilot@04a84a73c027b94ff0cfbf04a22a1acd63595c8c # v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           dry-run: ${{ inputs.dry-run || false }}
